@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="400" height="300">
+  <defs>
+    <pattern id="grid" width="16" height="16" patternUnits="userSpaceOnUse">
+      <path d="M16 0H0V16" fill="none" stroke="#3c64a0" stroke-opacity="0.13" stroke-width="1"/>
+    </pattern>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#46321a" flood-opacity="0.2"/>
+    </filter>
+  </defs>
+  <rect width="400" height="300" fill="#fbf7ee"/>
+  <rect width="400" height="300" fill="url(#grid)"/>
+  <g transform="rotate(-4 165 145)" filter="url(#shadow)">
+    <rect x="55" y="32" width="220" height="214" rx="3" fill="#fffdf8"/>
+  </g>
+  <g transform="rotate(-4 165 145)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M90 92c10-14 30-14 38-2 8-12 30-10 34 6" stroke="#8b8794" stroke-width="5"/>
+    <path d="M196 70c8-10 24-10 30 0 6-8 22-6 24 6" stroke="#8b8794" stroke-width="5"/>
+    <path d="M165 70c-34 0-52 26-52 52 0 30 26 50 40 62h24c14-12 40-32 40-62 0-26-18-52-52-52z" fill="#d94a3d" stroke="#2d2a35" stroke-width="5"/>
+    <path d="M165 70c-14 0-22 26-22 52 0 28 10 48 16 62M165 70c14 0 22 26 22 52 0 28-10 48-16 62" fill="none" stroke="#f2c230" stroke-width="9"/>
+    <path d="M165 70c-34 0-52 26-52 52 0 30 26 50 40 62h24c14-12 40-32 40-62 0-26-18-52-52-52z" stroke="#2d2a35" stroke-width="5"/>
+    <path d="M153 184l-4 22M177 184l4 22" stroke="#2d2a35" stroke-width="4"/>
+    <path d="M146 206h38v18c0 4-3 6-6 6h-26c-3 0-6-2-6-6z" fill="#8a5a3b" stroke="#2d2a35" stroke-width="4"/>
+    <path d="M78 238c18-8 34 6 52-2s34 6 52-2 34 6 56-2" stroke="#3c7bd1" stroke-width="5"/>
+  </g>
+  <rect x="44" y="40" width="58" height="17" fill="#e2cd8c" fill-opacity="0.85" transform="rotate(-40 73 48)"/>
+  <rect x="236" y="22" width="58" height="17" fill="#e2cd8c" fill-opacity="0.85" transform="rotate(34 265 30)"/>
+  <g transform="rotate(7 330 86)" filter="url(#shadow)">
+    <path d="M286 42h88v86l-14 12h-74z" fill="#ffe27a"/>
+  </g>
+  <g transform="rotate(7 330 86)" fill="none" stroke="#2d2a35" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M313 72c0-14 12-20 22-18 12 2 18 12 12 22-4 7-14 10-14 20v4"/>
+    <circle cx="333" cy="116" r="2.5" fill="#2d2a35"/>
+  </g>
+  <g transform="translate(96 262)">
+    <rect x="0" y="0" width="20" height="24" rx="2" fill="#fffdf8" stroke="#2c5aa0" stroke-opacity="0.55" stroke-width="2"/>
+    <rect x="25" y="0" width="20" height="24" rx="2" fill="#e8f0fb" stroke="#2c5aa0" stroke-opacity="0.55" stroke-width="2"/>
+    <rect x="50" y="0" width="20" height="24" rx="2" fill="#fffdf8" stroke="#2c5aa0" stroke-opacity="0.55" stroke-width="2"/>
+    <rect x="75" y="0" width="20" height="24" rx="2" fill="#fffdf8" stroke="#2c5aa0" stroke-opacity="0.55" stroke-width="2"/>
+    <rect x="100" y="0" width="20" height="24" rx="2" fill="#fffdf8" stroke="#2c5aa0" stroke-opacity="0.55" stroke-width="2"/>
+    <rect x="125" y="0" width="20" height="24" rx="2" fill="#fffdf8" stroke="#2c5aa0" stroke-opacity="0.55" stroke-width="2"/>
+    <path d="M30 7v8c0 4 10 4 10 0V7" fill="none" stroke="#2c5aa0" stroke-width="2.5" stroke-linecap="round"/>
+  </g>
+  <g transform="translate(300 150) rotate(28)">
+    <g>
+      <path d="M0 0h70v14H0z" fill="#3c7bd1"/>
+      <path d="M70 0l20 7-20 7z" fill="#efd3a6"/>
+      <path d="M84 5l6 2-6 2z" fill="#3c7bd1"/>
+      <path d="M0 0h70v4H0z" fill="#fff" fill-opacity="0.3"/>
+    </g>
+    <g transform="translate(-6 22)">
+      <path d="M0 0h70v14H0z" fill="#3f9a4a"/>
+      <path d="M70 0l20 7-20 7z" fill="#efd3a6"/>
+      <path d="M84 5l6 2-6 2z" fill="#3f9a4a"/>
+      <path d="M0 0h70v4H0z" fill="#fff" fill-opacity="0.3"/>
+    </g>
+    <g transform="translate(-12 44)">
+      <path d="M0 0h70v14H0z" fill="#f2c230"/>
+      <path d="M70 0l20 7-20 7z" fill="#efd3a6"/>
+      <path d="M84 5l6 2-6 2z" fill="#f2c230"/>
+      <path d="M0 0h70v4H0z" fill="#fff" fill-opacity="0.3"/>
+    </g>
+  </g>
+  <g fill="#d94a3d">
+    <rect x="300" y="244" width="6" height="12" transform="rotate(25 303 250)"/>
+    <rect x="352" y="232" width="5" height="11" fill="#8a5cc2" transform="rotate(-30 354 237)"/>
+    <rect x="370" y="262" width="6" height="12" fill="#f2c230" transform="rotate(60 373 268)"/>
+    <rect x="28" y="140" width="5" height="11" fill="#3f9a4a" transform="rotate(-20 30 145)"/>
+    <rect x="20" y="210" width="6" height="12" fill="#3c7bd1" transform="rotate(40 23 216)"/>
+  </g>
+</svg>

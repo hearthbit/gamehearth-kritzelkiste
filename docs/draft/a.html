@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Entwurf A – Skizzenbuch</title>
+<script>const GAME_TITLE = "Kritzelkiste";</script>
+<style>
+:root{
+  --paper:#fbf7ee;--sheet:#fffdf8;--grid:rgba(60,100,160,.11);
+  --ink:#2d2a35;--ink2:#575262;--red:#c8382c;--green:#23733a;--blue:#2c5aa0;
+  --sticky:#ffe27a;--tape:rgba(226,205,140,.82);
+  --hand:"Segoe Print","Noteworthy","Bradley Hand","Comic Sans MS",cursive;
+  --ui:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --d-ink:#34323d;--d-red:#d94a3d;--d-yellow:#f0b429;--d-blue:#3c7bd1;--d-rock:#8a6a4f;
+  --kb-bg:#d2d5dc;--kb-key:#fff;--kb-key2:#abb0bb;--kb-tx:#111;--kb-sh:#8a8d94;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+button{font:inherit;color:inherit;border:0;background:none}
+i[data-i]{display:inline-grid;place-items:center;font-style:normal}
+i[data-i] svg{width:100%;height:100%}
+body{background:#e6dfd2;font-family:var(--ui);color:var(--ink);padding:28px 36px 40px;width:max-content}
+h1{font:600 22px var(--ui);margin-bottom:22px}
+.row{display:flex;gap:36px;align-items:flex-start}
+.cell{width:414px;display:flex;flex-direction:column;align-items:center;gap:8px}
+.phone{width:414px;height:868px;padding:12px;border-radius:52px;background:#16141a;box-shadow:0 18px 40px rgba(40,30,10,.25),inset 0 0 0 2px #2c2a31}
+.screen{position:relative;width:390px;height:844px;border-radius:40px;overflow:hidden;background:var(--paper)}
+.label{font:700 18px var(--ui);margin-top:6px}
+.cap{font:14px/1.4 var(--ui);color:var(--ink2);text-align:center;max-width:390px}
+
+.pbar{position:absolute;top:0;left:0;right:0;height:52px;background:#12081f;color:#f4ecff;display:flex;align-items:center;padding:0 6px;gap:4px;z-index:5;font-family:var(--ui)}
+.pbar .ib{width:44px;height:44px;display:grid;place-items:center}
+.pbar .ib i{width:24px;height:24px}
+.pbar .nm{flex:1;font-weight:600;font-size:17px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pbar .rc{font-size:13px;font-weight:600;letter-spacing:.06em;padding:5px 10px;border-radius:999px;background:rgba(255,255,255,.1);color:#e6dcf7}
+.home{position:absolute;bottom:7px;left:50%;width:134px;height:5px;margin-left:-67px;border-radius:3px;background:var(--ink);opacity:.8;z-index:6}
+
+.game{position:absolute;top:52px;left:0;width:390px;height:792px;display:flex;flex-direction:column;justify-content:space-between;padding:12px 12px 20px}
+.game.kb{height:492px;padding:10px 12px 8px}
+.paper{background-color:var(--paper);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:22px 22px;background-position:-1px -1px}
+
+#lh .ink{stroke:var(--d-ink);stroke-width:5}
+#lh .t{stroke-width:3.2}
+#lh .red{stroke:var(--d-red);stroke-width:5}
+#lh .fred{fill:var(--d-red)}
+#lh .yel{stroke:var(--d-yellow);stroke-width:6}
+#lh .fyel{fill:var(--d-yellow)}
+#lh .blue{stroke:var(--d-blue);stroke-width:5}
+#lh .rock{stroke:var(--d-rock);stroke-width:6}
+#lh .fink{fill:var(--d-ink)}
+
+.av{position:relative;width:36px;height:36px;border-radius:50%;background:var(--c);border:2px solid var(--ink);display:grid;place-items:center;font:700 16px var(--ui);color:var(--ink);flex:none}
+.av.sm{width:30px;height:30px;font-size:14px}
+.bd{position:absolute;right:-7px;bottom:-5px;width:19px;height:19px;border-radius:50%;display:grid;place-items:center;border:2px solid var(--paper)}
+.bd i{width:11px;height:11px}
+.bd.ok{background:var(--green);color:#fff}
+.bd.dr{background:var(--ink);color:#fff}
+
+.a-top{display:flex;align-items:center;gap:12px;height:80px}
+.sticky{position:relative;flex:1;background:var(--sticky);padding:10px 14px 8px;transform:rotate(-1.2deg);box-shadow:0 4px 8px rgba(80,60,0,.18);border-radius:2px 2px 10px 2px}
+.sticky .tp{position:absolute;top:-9px;left:50%;margin-left:-30px;width:60px;height:18px;transform:rotate(2deg)}
+.st-l{display:flex;align-items:center;gap:6px;font-size:13px;color:#4b4535}
+.st-l i{width:16px;height:16px}
+.st-w{font:700 27px/1.25 var(--hand);color:var(--ink)}
+.clock{display:flex;flex-direction:column;align-items:center;gap:2px;width:78px}
+.rnd{font-size:13px;font-weight:600;color:var(--ink2);white-space:nowrap}
+.ring{position:relative;display:grid;place-items:center}
+.ring svg{display:block}
+.ring .trk{stroke:#e5dccb}
+.ring .prg{stroke:var(--red)}
+.ring span{position:absolute;inset:0;display:grid;place-items:center;font:700 21px var(--hand);color:var(--ink);line-height:1}
+
+.plist{display:grid;grid-template-columns:repeat(5,1fr);height:76px;background:rgba(255,253,248,.7);border:1.5px dashed rgba(45,42,53,.25);border-radius:12px;padding:4px 0}
+.pl{display:flex;flex-direction:column;align-items:center;gap:1px}
+.pn{font-size:12.5px;color:var(--ink2);line-height:1.1;margin-top:2px}
+.ps{font-size:13px;font-weight:700;line-height:1.1}
+.pl.me .pn{color:var(--ink);font-weight:700}
+
+.sheetw{position:relative;width:366px;height:366px;align-self:center;background:var(--sheet);box-shadow:0 1px 2px rgba(0,0,0,.12),0 6px 14px rgba(70,50,20,.13);border-radius:3px;flex:none}
+.sheetw .cv{width:100%;height:100%;display:block}
+.tape{position:absolute;width:62px;height:18px;background:var(--tape);box-shadow:0 1px 2px rgba(0,0,0,.08);z-index:2}
+.sheetw .tpl{left:-11px;top:6px;transform:rotate(-38deg)}
+.sheetw .tpr{right:-11px;top:6px;transform:rotate(38deg)}
+.nib{position:absolute;width:30px;height:30px;border-radius:50%;border:2px solid rgba(45,42,53,.45);background:rgba(217,74,61,.14);left:177px;top:183px}
+
+.seen{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--ink2);height:30px}
+.seen em{font:400 15px/1.2 var(--hand);font-style:normal;color:var(--ink);background:var(--sheet);padding:2px 10px;border-radius:2px;box-shadow:0 1px 3px rgba(0,0,0,.14);text-decoration:line-through;text-decoration-color:rgba(200,56,44,.8);text-decoration-thickness:2px}
+.seen em:nth-child(2){transform:rotate(-2deg)}.seen em:nth-child(3){transform:rotate(1.5deg)}.seen em:nth-child(4){transform:rotate(-1deg)}
+
+.dock{display:flex;flex-direction:column;gap:10px}
+.case{position:relative;height:84px;display:flex;justify-content:space-between;overflow:hidden;border-radius:14px 14px 12px 12px}
+.pc{position:relative;width:44px;height:84px}
+.pc svg{position:absolute;left:0;top:12px}
+.pc.sel svg{top:0}
+.pocket{position:absolute;left:0;right:0;bottom:0;height:26px;background:#4f6f96;border-radius:12px;box-shadow:inset 0 2px 0 rgba(255,255,255,.18),0 -2px 4px rgba(0,0,0,.15);pointer-events:none}
+.pocket::after{content:"";position:absolute;left:10px;right:10px;top:6px;border-top:2px dashed rgba(255,255,255,.55)}
+.tools{display:flex;justify-content:space-between}
+.tl{width:50px;height:62px;border-radius:12px;background:var(--sheet);border:1.5px solid rgba(45,42,53,.3);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;box-shadow:0 2px 0 rgba(45,42,53,.12)}
+.tl i{width:24px;height:24px}
+.tl small{font-size:11.5px;color:var(--ink2);line-height:1.1}
+.tl .dw{width:24px;height:24px;display:grid;place-items:center}
+.tl .dot{width:var(--s);height:var(--s);border-radius:50%;background:var(--d-red)}
+.tl.sel{background:#fff1b8;border:2px solid var(--ink)}
+.tl.sel small{color:var(--ink);font-weight:700}
+.tl.warn{color:var(--red);margin-left:6px}
+.tl.warn small{color:var(--red)}
+
+.a-top.g{height:58px;gap:10px;margin-bottom:12px}
+.who{flex:1;font-size:16px;line-height:1.2}
+.who small{display:block;font-size:13px;color:var(--ink2)}
+.mini{display:flex}
+.mini .av{margin-left:-6px;border-color:var(--ink)}
+.mini .av:first-child{margin-left:0}
+.mini .bd{width:16px;height:16px;right:-5px;bottom:-5px}
+.mini .bd i{width:9px;height:9px}
+
+.cells{display:flex;align-items:center;gap:3px;height:42px;justify-content:center}
+.cells span{width:30px;height:38px;background:var(--sheet);border:1.5px solid rgba(44,90,160,.5);border-radius:3px;display:grid;place-items:center;font:700 21px/1 var(--hand);color:var(--blue);text-transform:uppercase}
+.cells span:nth-child(odd){transform:rotate(-1deg)}
+.cells span.on{background:#e8f0fb}
+.cells em{font-style:normal;font-size:12px;font-weight:700;color:var(--ink2);margin-left:6px;line-height:1.1;text-align:center}
+.cells.solved span{color:var(--green);border-color:rgba(35,115,58,.6);background:#eaf6ea}
+
+.notes{flex:1;display:flex;flex-wrap:wrap;align-content:flex-start;gap:12px 10px;padding:14px 2px 6px}
+.note{background:var(--sheet);padding:5px 13px 6px;border-radius:2px;box-shadow:0 1px 3px rgba(0,0,0,.15),0 3px 6px rgba(70,50,20,.08);transform:rotate(var(--r,0deg));display:flex;flex-direction:column;line-height:1.15}
+.note small{font-size:12px;color:var(--ink2)}
+.note span{font:400 20px/1.3 var(--hand)}
+.note.x span{text-decoration:line-through;text-decoration-color:rgba(200,56,44,.85);text-decoration-thickness:2px}
+.note.ok{flex-direction:row;align-items:center;gap:6px;background:#e3f3e1;color:var(--green);padding:8px 12px}
+.note.ok i{width:20px;height:20px}
+.note.ok span{font-weight:700;font-size:16px}
+.note.near{background:var(--sticky);padding:5px 12px 7px}
+.note.near small{display:flex;align-items:center;gap:4px;color:#4b4535}
+.note.near small i{width:14px;height:14px}
+.note.near b{font-size:14px;color:#a12a1f}
+.note.me{background:#d7efd4;color:#174f27;flex-direction:row;align-items:center;gap:10px;padding:8px 14px}
+.note.me span{font-weight:700;font-size:18px}
+.note.me b{font:700 22px var(--hand);color:var(--green)}
+
+.guess{display:flex;gap:10px;align-items:center;height:56px}
+.inp{flex:1;height:56px;background:var(--sheet);border:2px solid var(--ink);border-radius:14px;display:flex;align-items:center;gap:8px;padding:0 14px;font-size:18px;box-shadow:0 3px 0 rgba(45,42,53,.15)}
+.inp i[data-i]{width:20px;height:20px;color:var(--ink2);flex:none}
+.ph{color:var(--ink2)}
+.typed{color:var(--ink)}
+.caret{display:inline-block;width:2px;height:24px;background:var(--blue);margin-left:-7px}
+.send{width:56px;height:56px;border-radius:50%;background:var(--red);color:#fff;display:grid;place-items:center;box-shadow:0 3px 0 #8e2117;flex:none}
+.send i{width:26px;height:26px}
+
+.kbtop{display:flex;gap:10px;align-items:stretch}
+.sheetw.s290{width:290px;height:290px;align-self:auto}
+.s290 .tpl,.s290 .tpr{width:50px;height:15px}
+.s290 .tpl{left:-8px}.s290 .tpr{right:-8px}
+.side{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center}
+.side small{font-size:13px;color:var(--ink2);margin-top:-4px}
+.strip{display:flex;align-items:center;gap:8px;height:40px;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,#000 80%,transparent);mask-image:linear-gradient(90deg,#000 80%,transparent)}
+.strip .cnt{flex:none;font-size:13px;font-weight:700;color:var(--ink);background:var(--sheet);border:1.5px solid rgba(45,42,53,.3);border-radius:999px;padding:4px 10px;display:flex;align-items:center;gap:4px;height:32px}
+.strip .cnt i{width:14px;height:14px}
+.strip .note{flex:none;flex-direction:row;align-items:baseline;gap:6px;padding:3px 10px;white-space:nowrap}
+.strip .note span{font-size:16px}
+.strip .note b{font-size:13px}
+
+.kbd{position:absolute;left:0;right:0;bottom:0;height:300px;background:var(--kb-bg);font-family:var(--ui);z-index:7;padding:0 3px}
+.kbd .pred{height:44px;display:flex;align-items:center}
+.kbd .pred span{flex:1;text-align:center;font-size:16px;color:var(--kb-tx);border-left:1px solid rgba(0,0,0,.15)}
+.kbd .pred span:first-child{border:0}
+.kbd .kr{display:flex;justify-content:center;gap:5px;margin-top:11px}
+.kbd .kr:first-of-type{margin-top:4px}
+.kbd .k{height:42px;flex:0 0 30.4px;border-radius:5px;background:var(--kb-key);box-shadow:0 1px 0 var(--kb-sh);display:grid;place-items:center;font-size:21px;color:var(--kb-tx)}
+.kbd .k.s{background:var(--kb-key2);flex-basis:44px;font-size:16px}
+.kbd .k.s i{width:22px;height:22px}
+.kbd .k.sh{margin-right:9px}.kbd .k.bk{margin-left:9px}
+.kbd .k.sp{flex:1 1 auto;font-size:16px}
+.kbd .k.rt{flex-basis:92px;font-size:16px}
+.kbd .kf{position:absolute;left:0;right:0;bottom:0;height:46px;display:flex;justify-content:space-between;padding:4px 26px;color:var(--kb-tx)}
+.kbd .kf i{width:26px;height:26px}
+.kbd .kh{position:absolute;bottom:7px;left:50%;width:134px;height:5px;margin-left:-67px;border-radius:3px;background:var(--kb-tx)}
+
+.win .flash{position:absolute;inset:0;background:radial-gradient(120% 70% at 50% 40%,rgba(120,205,120,.30),rgba(120,205,120,.10) 60%,rgba(120,205,120,.04));pointer-events:none}
+.stamp{position:absolute;left:8px;top:10px;width:164px;height:112px;border:4px solid var(--red);border-radius:50%;transform:rotate(-9deg);display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(255,253,248,.9);color:var(--red);box-shadow:0 0 0 3px rgba(255,253,248,.9),inset 0 0 0 3px rgba(200,56,44,.25);z-index:9}
+.stamp span{font:700 20px/1 var(--hand)}
+.stamp b{font:700 42px/1.05 var(--hand)}
+.wait{display:flex;align-items:center;gap:12px;height:60px;background:var(--sheet);border:2px dashed rgba(45,42,53,.35);border-radius:14px;padding:0 14px;font-size:16px;line-height:1.25}
+.wait small{display:block;font-size:13px;color:var(--green);font-weight:700}
+.wavs{display:flex}
+.wavs .av+.av{margin-left:-6px}
+.dots3{display:inline-flex;gap:3px;margin-left:2px;vertical-align:middle}
+.dots3 b{width:5px;height:5px;border-radius:50%;background:var(--ink2)}
+.confetti{position:absolute;inset:0;pointer-events:none;z-index:8}
+.confetti b{position:absolute;display:block}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<defs>
+<filter id="wob" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="2" seed="4" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="3.5" xChannelSelector="R" yChannelSelector="G"/></filter>
+</defs>
+<symbol id="lh" viewBox="0 0 400 400">
+<g filter="url(#wob)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<path class="blue" d="M18 356 C30 346 42 346 54 356 S78 366 90 356 S114 346 126 356 S150 366 160 358"/>
+<path class="blue" d="M34 382 C46 372 58 372 70 382 S94 392 106 382 S130 372 142 382"/>
+<path class="rock" d="M134 340 C146 318 168 312 188 320 C204 309 234 307 252 318 C268 313 284 324 294 340"/>
+<path class="ink t" d="M128 341 L300 341"/>
+<path class="fred" d="M173 280 L243 279 L244.6 300 L171.6 301 Z"/>
+<path class="red" d="M180 217 L185 234 L190 216 L195 234 L200 216 L205 234 L209 217"/>
+<path class="ink t" d="M178 214 L238 214 M176.5 236 L239.5 236"/>
+<path class="ink" d="M170 320 C174 262 178 204 183 146"/>
+<path class="ink" d="M246 320 C241 262 236 204 232 146"/>
+<path class="ink" d="M166 320 L250 320"/>
+<path class="ink" d="M172 146 L244 146"/>
+<path class="ink t" d="M172 131 L243 131 M177 146 V131 M189 146 V131 M201 146 V131 M214 146 V131 M226 146 V131 M238 146 V131"/>
+<path class="fyel" d="M195 110 H221 V129 H195 Z"/>
+<path class="ink" d="M191 131 V105 H225 V131"/>
+<path class="fred ink" d="M185 105 C191 85 225 85 231 105 Z"/>
+<path class="ink" d="M208 89 V77"/>
+<circle class="ink fink" cx="208" cy="74" r="3"/>
+<path class="ink t" d="M201 320 V302 C201 291 215 291 215 302 V320"/>
+<path class="ink t" d="M203 176 H213 V191 H203 Z"/>
+<path class="yel" d="M234 112 L302 92 M234 122 L320 124 M234 132 L302 156"/>
+<path class="yel" d="M184 116 L136 102"/>
+<path class="ink t" d="M300 212 C306 204 312 204 316 212 C320 204 326 204 332 212"/>
+</g>
+</symbol>
+</svg>
+
+<h1><span data-title></span> – Entwurf A: Skizzenbuch</h1>
+<div class="row">
+
+<div class="cell">
+<div class="phone"><div class="screen">
+  <div class="pbar"></div>
+  <div class="game paper">
+    <div class="a-top">
+      <div class="sticky"><span class="tape tp"></span>
+        <div class="st-l"><i data-i="eye"></i>Nur du siehst dein Wort</div>
+        <div class="st-w">Leuchtturm</div>
+      </div>
+      <div class="clock"><div class="ring" data-ring="47/80" data-size="58"></div><div class="rnd">Runde 2/3</div></div>
+    </div>
+    <div class="plist">
+      <div class="pl"><span class="av" style="--c:#ffc6d0">M<b class="bd ok"><i data-i="check"></i></b></span><span class="pn">Mia</span><span class="ps">240</span></div>
+      <div class="pl"><span class="av" style="--c:#c8e2ff">O</span><span class="pn">Oma</span><span class="ps">210</span></div>
+      <div class="pl me"><span class="av" style="--c:#ffe08a">B<b class="bd dr"><i data-i="pencil"></i></b></span><span class="pn">Du</span><span class="ps">180</span></div>
+      <div class="pl"><span class="av" style="--c:#c9efc0">L</span><span class="pn">Lena</span><span class="ps">150</span></div>
+      <div class="pl"><span class="av" style="--c:#e2d2ff">J</span><span class="pn">Jonas</span><span class="ps">90</span></div>
+    </div>
+    <div class="sheetw"><span class="tape tpl"></span><span class="tape tpr"></span><svg class="cv" viewBox="0 0 400 400"><use href="#lh"/></svg><span class="nib"></span></div>
+    <div class="seen"><span>Tipps der anderen:</span><em>Turm</em><em>Kerze</em><em>Rakete</em></div>
+    <div class="dock">
+      <div class="case" data-pencils="#2d2a35,#d94a3d,#ef8a2c,#f2c230,#3f9a4a,#3c7bd1,#8a5cc2,#8a5a3b" data-names="Schwarz,Rot,Orange,Gelb,Grün,Blau,Lila,Braun" data-sel="1"><div class="pocket"></div></div>
+      <div class="tools">
+        <button class="tl"><span class="dw"><span class="dot" style="--s:6px"></span></span><small>fein</small></button>
+        <button class="tl sel"><span class="dw"><span class="dot" style="--s:12px"></span></span><small>mittel</small></button>
+        <button class="tl"><span class="dw"><span class="dot" style="--s:20px"></span></span><small>dick</small></button>
+        <button class="tl"><i data-i="eraser"></i><small>Radierer</small></button>
+        <button class="tl"><i data-i="bucket"></i><small>Füllen</small></button>
+        <button class="tl"><i data-i="undo"></i><small>Zurück</small></button>
+        <button class="tl warn"><i data-i="trash"></i><small>Leeren</small></button>
+      </div>
+    </div>
+  </div>
+  <div class="home"></div>
+</div></div>
+<div class="label">Zeichnen</div>
+<div class="cap">Wort als Klebezettel oben. Stifte stecken im Mäppchen, Stärken und Werkzeuge liegen darunter – alles in der Daumenzone.</div>
+</div>
+
+<div class="cell">
+<div class="phone"><div class="screen">
+  <div class="pbar"></div>
+  <div class="game paper">
+    <div class="a-top g">
+      <span class="av" style="--c:#ffe08a">B<b class="bd dr"><i data-i="pencil"></i></b></span>
+      <div class="who"><b>Ben</b> zeichnet<small>Runde 2/3</small></div>
+      <div class="mini"><span class="av sm" style="--c:#ffc6d0">M<b class="bd ok"><i data-i="check"></i></b></span><span class="av sm" style="--c:#c8e2ff">O</span><span class="av sm" style="--c:#e2d2ff">J</span></div>
+      <div class="ring" data-ring="41/80" data-size="54"></div>
+    </div>
+    <div class="sheetw"><span class="tape tpl"></span><span class="tape tpr"></span><svg class="cv" viewBox="0 0 400 400"><use href="#lh"/></svg></div>
+    <div class="cells" data-word="··u·······"></div>
+    <div class="notes">
+      <div class="note x" style="--r:-2deg"><small>Jonas</small><span>Turm</span></div>
+      <div class="note x" style="--r:1.5deg"><small>Oma</small><span>Kerze</span></div>
+      <div class="note ok" style="--r:-1deg"><i data-i="check"></i><span>Mia hat es erraten!</span></div>
+      <div class="note x" style="--r:2deg"><small>Jonas</small><span>Rakete</span></div>
+      <div class="note near" style="--r:-1.5deg"><small><i data-i="eye"></i>Du · nur für dich</small><span>Leuchtturn</span><b>knapp daneben!</b></div>
+    </div>
+    <div class="guess"><label class="inp"><i data-i="pencil"></i><span class="ph">Dein Tipp …</span></label><button class="send" aria-label="Senden"><i data-i="send"></i></button></div>
+  </div>
+  <div class="home"></div>
+</div></div>
+<div class="label">Raten</div>
+<div class="cap">Lösungskästchen direkt unter dem Blatt, Tipps als Zettel, Falsches durchgestrichen. Der Beinahe-Treffer ist ein gelber Zettel nur für dich.</div>
+</div>
+
+<div class="cell">
+<div class="phone"><div class="screen">
+  <div class="pbar"></div>
+  <div class="game paper kb">
+    <div class="kbtop">
+      <div class="sheetw s290"><span class="tape tpl"></span><span class="tape tpr"></span><svg class="cv" viewBox="0 0 400 400"><use href="#lh"/></svg></div>
+      <div class="side">
+        <div class="ring" data-ring="38/80" data-size="56"></div>
+        <div class="rnd">Runde 2/3</div>
+        <span class="av" style="--c:#ffe08a">B<b class="bd dr"><i data-i="pencil"></i></b></span>
+        <small>zeichnet</small>
+      </div>
+    </div>
+    <div class="cells" data-word="··u·······"></div>
+    <div class="strip">
+      <span class="cnt"><i data-i="up"></i>5 Tipps</span>
+      <div class="note near" style="--r:-1deg"><span>Leuchtturn</span><b>knapp daneben!</b></div>
+      <div class="note x" style="--r:1deg"><span>Rakete</span></div>
+      <div class="note ok"><span>Mia ✓</span></div>
+    </div>
+    <div class="guess"><label class="inp"><i data-i="pencil"></i><span class="typed">Leucht</span><span class="caret"></span></label><button class="send" aria-label="Senden"><i data-i="send"></i></button></div>
+  </div>
+  <div class="kbd" data-kbd></div>
+</div></div>
+<div class="label">Raten mit Tastatur</div>
+<div class="cap">Blatt schrumpft auf 290 px, Uhr und Runde wandern daneben. Die Zettel klappen zu einer Zeile zusammen, Eingabe sitzt direkt über der Tastatur.</div>
+</div>
+
+<div class="cell">
+<div class="phone"><div class="screen">
+  <div class="pbar"></div>
+  <div class="game paper win">
+    <div class="flash"></div>
+    <div class="a-top g">
+      <span class="av" style="--c:#ffe08a">B<b class="bd dr"><i data-i="pencil"></i></b></span>
+      <div class="who"><b>Ben</b> zeichnet<small>Runde 2/3</small></div>
+      <div class="mini"><span class="av sm" style="--c:#ffc6d0">M<b class="bd ok"><i data-i="check"></i></b></span><span class="av sm" style="--c:#c8e2ff">O</span><span class="av sm" style="--c:#e2d2ff">J</span></div>
+      <div class="ring" data-ring="34/80" data-size="54"></div>
+    </div>
+    <div class="sheetw"><span class="tape tpl"></span><span class="tape tpr"></span><svg class="cv" viewBox="0 0 400 400"><use href="#lh"/></svg>
+      <div class="stamp"><span>Richtig!</span><b>+120</b></div>
+    </div>
+    <div class="cells solved" data-word="leuchtturm"></div>
+    <div class="notes">
+      <div class="note x" style="--r:1.5deg"><small>Oma</small><span>Kerze</span></div>
+      <div class="note ok" style="--r:-1deg"><i data-i="check"></i><span>Mia hat es erraten!</span></div>
+      <div class="note x" style="--r:2deg"><small>Jonas</small><span>Rakete</span></div>
+      <div class="note me" style="--r:-1.5deg"><span>Du hast es erraten!</span><b>+120</b></div>
+    </div>
+    <div class="wait">
+      <div class="wavs"><span class="av sm" style="--c:#e2d2ff">J</span><span class="av sm" style="--c:#c8e2ff">O</span></div>
+      <div><b>Jonas</b> und <b>Oma</b> raten noch<span class="dots3"><b></b><b></b><b></b></span><small>270 Punkte – du bist jetzt vorne!</small></div>
+    </div>
+    <div class="confetti" data-confetti="36" data-colors="#d94a3d,#f2c230,#3c7bd1,#3f9a4a,#8a5cc2,#ef8a2c"></div>
+  </div>
+  <div class="home"></div>
+</div></div>
+<div class="label">Richtig!</div>
+<div class="cap">Grüner Schimmer, roter Stempel „+120“, Papierschnipsel-Konfetti. Das Wort steht in den Kästchen, unten siehst du, wer noch rät.</div>
+</div>
+
+</div>
+
+<script>
+const IC={
+back:'<path d="M15 5l-7 7 7 7"/>',
+dots:'<circle cx="12" cy="5" r="1.7" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.7" fill="currentColor" stroke="none"/><circle cx="12" cy="19" r="1.7" fill="currentColor" stroke="none"/>',
+eye:'<path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>',
+lock:'<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',
+eraser:'<path d="M4 15.5l8.5-8.5a2 2 0 0 1 2.8 0l3.7 3.7a2 2 0 0 1 0 2.8L12 20.5H8.5z"/><path d="M9 10.5l5.5 5.5"/><path d="M13 20.5h7"/>',
+bucket:'<path d="M5 11.5l6.5-6.5 7 7-6.5 6.5a1.5 1.5 0 0 1-2 0l-5-5a1.5 1.5 0 0 1 0-2z"/><path d="M5 12h13.5"/><path d="M20.5 15.5s1.5 2 1.5 3a1.5 1.5 0 0 1-3 0c0-1 1.5-3 1.5-3z" fill="currentColor"/>',
+undo:'<path d="M9 14L4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/>',
+trash:'<path d="M4 7h16"/><path d="M10 11v6M14 11v6"/><path d="M6 7l1 13h10l1-13"/><path d="M9 7V4h6v3"/>',
+send:'<path d="M4 12h15"/><path d="M13 6l6 6-6 6"/>',
+check:'<path d="M5 12.5l4.5 4.5L19 7.5"/>',
+pencil:'<path d="M4 20l1-4.5L16 4.5l3.5 3.5L8.5 19z"/><path d="M14 6.5l3.5 3.5"/>',
+history:'<path d="M3.5 12a8.5 8.5 0 1 0 2.6-6.1"/><path d="M3.5 4.5v4.5H8"/><path d="M12 8v4.5l3 2"/>',
+shift:'<path d="M12 4.5l7.5 7.5H15.5v6.5h-7V12H4.5z"/>',
+bksp:'<path d="M21 5.5H9l-6 6.5 6 6.5h12z"/><path d="M12.5 9.5l5 5M17.5 9.5l-5 5"/>',
+globe:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.2 3 14.8 0 18M12 3c-3 3.2-3 14.8 0 18"/>',
+mic:'<rect x="9" y="3" width="6" height="12" rx="3"/><path d="M5.5 11.5a6.5 6.5 0 0 0 13 0M12 18v3"/>',
+smile:'<circle cx="12" cy="12" r="9"/><path d="M8.5 14.5a4.5 4.5 0 0 0 7 0"/><circle cx="9" cy="10" r="1" fill="currentColor"/><circle cx="15" cy="10" r="1" fill="currentColor"/>',
+up:'<path d="M6 15l6-6 6 6"/>',
+down:'<path d="M6 9l6 6 6-6"/>'
+};
+const svgIcon=n=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${IC[n]}</svg>`;
+document.title=`${GAME_TITLE} – Entwurf A`;
+document.querySelectorAll("[data-title]").forEach(e=>e.textContent=GAME_TITLE);
+document.querySelectorAll(".pbar").forEach(e=>e.innerHTML=`<button class="ib" aria-label="Zurück"><i data-i="back"></i></button><span class="nm">${GAME_TITLE}</span><span class="rc">Raum K7QX</span><button class="ib" aria-label="Menü"><i data-i="dots"></i></button>`);
+document.querySelectorAll("[data-pencils]").forEach(el=>{
+  const cols=el.dataset.pencils.split(","),names=el.dataset.names.split(","),sel=+el.dataset.sel;
+  el.insertAdjacentHTML("afterbegin",cols.map((c,i)=>`<button class="pc${i===sel?" sel":""}" aria-label="${names[i]}"><svg viewBox="0 0 44 96" width="44" height="96"><path d="M10 22 L22 3 L34 22 Z" fill="#efd3a6"/><path d="M18.2 9 L22 3 L25.8 9 Z" fill="${c}"/><rect x="10" y="22" width="24" height="74" rx="1" fill="${c}"/><rect x="10" y="22" width="7" height="74" fill="rgba(255,255,255,.3)"/><rect x="27" y="22" width="7" height="74" fill="rgba(0,0,0,.15)"/></svg></button>`).join(""));
+});
+document.querySelectorAll("[data-word]").forEach(el=>{
+  const w=[...el.dataset.word];
+  el.innerHTML=w.map(ch=>`<span class="${ch!=="·"?"on":""}">${ch!=="·"?ch:""}</span>`).join("")+`<em>10<br>Buchst.</em>`;
+});
+document.querySelectorAll("[data-ring]").forEach(el=>{
+  const [v,max]=el.dataset.ring.split("/").map(Number),s=+el.dataset.size,sw=5,r=(s-sw)/2-1,c=2*Math.PI*r;
+  el.innerHTML=`<svg width="${s}" height="${s}" viewBox="0 0 ${s} ${s}"><circle class="trk" cx="${s/2}" cy="${s/2}" r="${r}" fill="none" stroke-width="${sw}"/><circle class="prg" cx="${s/2}" cy="${s/2}" r="${r}" fill="none" stroke-width="${sw}" stroke-linecap="round" stroke-dasharray="${(c*v/max).toFixed(1)} ${c.toFixed(1)}" transform="rotate(-90 ${s/2} ${s/2})"/></svg><span>${v}</span>`;
+});
+document.querySelectorAll("[data-kbd]").forEach(el=>{
+  const k=(t,cls="")=>`<span class="k ${cls}">${t}</span>`;
+  const r1="qwertzuiopü",r2="asdfghjklöä",r3="yxcvbnm";
+  el.innerHTML=`<div class="pred"><span>„Leucht“</span><span>Leuchte</span><span>Leuchten</span></div>`+
+    `<div class="kr">${[...r1].map(c=>k(c)).join("")}</div>`+
+    `<div class="kr">${[...r2].map(c=>k(c)).join("")}</div>`+
+    `<div class="kr">${k('<i data-i="shift"></i>',"s sh")}${[...r3].map(c=>k(c)).join("")}${k('<i data-i="bksp"></i>',"s bk")}</div>`+
+    `<div class="kr">${k("123","s")}${k('<i data-i="smile"></i>',"s")}${k("Leerzeichen","sp")}${k("Senden","s rt")}</div>`+
+    `<div class="kf"><i data-i="globe"></i><i data-i="mic"></i></div><div class="kh"></div>`;
+});
+document.querySelectorAll("[data-i]").forEach(e=>e.innerHTML=svgIcon(e.dataset.i));
+document.querySelectorAll("[data-confetti]").forEach(el=>{
+  let seed=7;const rnd=()=>{seed=(seed*16807)%2147483647;return (seed-1)/2147483646};
+  const cols=el.dataset.colors.split(","),n=+el.dataset.confetti;let h="";
+  for(let i=0;i<n;i++){const x=rnd()*380,y=70+rnd()*340,w=4+rnd()*5,hh=8+rnd()*8,rot=rnd()*360,c=cols[i%cols.length];h+=`<b style="left:${x.toFixed(0)}px;top:${y.toFixed(0)}px;width:${w.toFixed(0)}px;height:${hh.toFixed(0)}px;background:${c};transform:rotate(${rot.toFixed(0)}deg);opacity:.9"></b>`;}
+  el.innerHTML=h;
+});
+</script>
+</body>
+</html>

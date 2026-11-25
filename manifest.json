@@ -1,0 +1,184 @@
+{
+  "id": "kritzelkiste",
+  "name": {
+    "de": "Kritzelkiste",
+    "en": "Doodle Box"
+  },
+  "version": "0.1.1",
+  "description": {
+    "de": "Einer malt mit dem Finger einen Begriff, alle anderen raten auf dem Handy – wer schneller rät, bekommt mehr Punkte.",
+    "en": "One player doodles a word with their finger, everyone else guesses on their phone – the faster you guess, the more points you get."
+  },
+  "languages": [
+    "de",
+    "en"
+  ],
+  "cover": "cover.svg",
+  "repository": "https://github.com/hearthbit/gamehearth-kritzelkiste",
+  "sdk": "^0.1.7",
+  "license": {
+    "code": "MIT",
+    "assets": "CC0-1.0"
+  },
+  "mode": "realtime",
+  "players": {
+    "min": 2,
+    "max": 10
+  },
+  "server": true,
+  "client": "dist/client",
+  "roles": {
+    "player": {
+      "inputs": [
+        "touch",
+        "keyboard"
+      ],
+      "screen": "small"
+    },
+    "screen": {
+      "inputs": [],
+      "screen": "large",
+      "optional": true
+    }
+  },
+  "options": {
+    "rounds": {
+      "label": {
+        "de": "Runden",
+        "en": "Rounds"
+      },
+      "type": "choice",
+      "default": 2,
+      "choices": [
+        {
+          "value": 1,
+          "label": {
+            "de": "1 Runde",
+            "en": "1 round"
+          }
+        },
+        {
+          "value": 2,
+          "label": {
+            "de": "2 Runden",
+            "en": "2 rounds"
+          }
+        },
+        {
+          "value": 3,
+          "label": {
+            "de": "3 Runden",
+            "en": "3 rounds"
+          }
+        },
+        {
+          "value": 4,
+          "label": {
+            "de": "4 Runden",
+            "en": "4 rounds"
+          }
+        }
+      ]
+    },
+    "drawTime": {
+      "label": {
+        "de": "Zeit zum Malen",
+        "en": "Drawing time"
+      },
+      "type": "choice",
+      "default": 80,
+      "choices": [
+        {
+          "value": 60,
+          "label": {
+            "de": "60 Sekunden",
+            "en": "60 seconds"
+          }
+        },
+        {
+          "value": 80,
+          "label": {
+            "de": "80 Sekunden",
+            "en": "80 seconds"
+          }
+        },
+        {
+          "value": 100,
+          "label": {
+            "de": "100 Sekunden",
+            "en": "100 seconds"
+          }
+        },
+        {
+          "value": 120,
+          "label": {
+            "de": "120 Sekunden",
+            "en": "120 seconds"
+          }
+        }
+      ]
+    },
+    "wordLanguage": {
+      "label": {
+        "de": "Sprache der Begriffe",
+        "en": "Language of the words"
+      },
+      "type": "choice",
+      "default": "de",
+      "choices": [
+        {
+          "value": "de",
+          "label": {
+            "de": "Deutsch",
+            "en": "German"
+          }
+        },
+        {
+          "value": "en",
+          "label": {
+            "de": "Englisch",
+            "en": "English"
+          }
+        }
+      ]
+    },
+    "ownWords": {
+      "label": {
+        "de": "Eigene Begriffe",
+        "en": "Own words"
+      },
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "stats": {
+    "siege": {
+      "label": {
+        "de": "Siege",
+        "en": "Wins"
+      },
+      "better": "higher"
+    },
+    "schnellster-treffer": {
+      "label": {
+        "de": "Schnellster Treffer",
+        "en": "Fastest correct guess"
+      },
+      "better": "lower",
+      "format": "time"
+    },
+    "punkterekord": {
+      "label": {
+        "de": "Punkterekord",
+        "en": "Most points in a match"
+      },
+      "better": "higher"
+    },
+    "erraten": {
+      "label": {
+        "de": "Erratene Begriffe",
+        "en": "Words guessed"
+      }
+    }
+  }
+}

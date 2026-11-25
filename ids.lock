@@ -1,0 +1,12 @@
+{
+  "format": 1,
+  "note": "Maintained by gamehearth check. Every ID listed here stays in the game forever (in manifest.json, if need be with \"deprecated\": true). Only IDs that were never published may be removed by hand.",
+  "items": [],
+  "stats": [
+    "erraten",
+    "punkterekord",
+    "schnellster-treffer",
+    "siege"
+  ],
+  "flags": []
+}
